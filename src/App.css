@@ -83,3 +83,13 @@ textarea {
 h3 {
   margin: 0px 1em;
 }
+
+.view-answers-link {
+  font-size: 1.4em;
+  color: purple;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+}

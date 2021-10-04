@@ -1,0 +1,21 @@
+
+.main {
+  background-color: rgb(235, 248, 252);
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1em;
+  display:block;
+  text-align: left;
+}
+
+button {
+    font-size: 1em;
+    padding: 0.5em 1em;
+    background: white;
+    border-color: white;
+    border-radius: .5em;
+}

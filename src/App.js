@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
-import Messages from './Messages';
-import MessageInput from './MessageInput';
 
 import './App.css';
+import RecentAnswers from './RecentAnswers/RecentAnswers';
 
 const MessageTypes = { NONE: 0, SUCCESS: 1, ERROR: 2 }
 const msgClasses = 
@@ -62,6 +61,15 @@ function App() {
     socket.emit('user-answer', { answerIsYes, answerDetails })
   }
 
+  const [showAnswers, setShowAnswers] = useState(false);
+  function viewAnswersPage() {
+    setShowAnswers(true)
+    setUserMessage({ type: MessageTypes.NONE })
+  }
+  function hideAnswersPage() {
+    setShowAnswers(false)
+  }
+
   return (
     <div className="App">
       <header className="app-header">
@@ -90,10 +98,21 @@ function App() {
         <div>Not Connected</div>
       )}
       { userMessage.type !== MessageTypes.NONE
-        ? (<h3 className={msgClasses[userMessage.type]}>
-            {userMessage.message}
-          </h3>) 
-        : (<span></span>)
+        ? (<span>
+            <h2 className={msgClasses[userMessage.type]}>
+              {userMessage.message}
+            </h2>
+            {userMessage.type === MessageTypes.SUCCESS
+              ? <button className="view-answers-link" target="_blank" onClick={viewAnswersPage}>
+              SEE WHAT OTHERS HAVE TO SAY</button>
+              : <span></span>
+            }
+          </span>) 
+        : <span></span>
+      }
+      { showAnswers
+        ? <RecentAnswers closeCallback={hideAnswersPage}/>
+        : <span></span>
       }
     </div>
   );
