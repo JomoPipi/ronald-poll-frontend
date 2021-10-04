@@ -93,3 +93,9 @@ h3 {
   border: none;
   background: transparent;
 }
+
+.yes-no-label {
+  margin: 0px 1em;
+  background: rgb(218, 225, 248);
+  border-radius: 6px;
+}

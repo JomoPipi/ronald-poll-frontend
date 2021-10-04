@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import io from 'socket.io-client';
 
 import './App.css';
@@ -12,23 +12,19 @@ const msgClasses =
   }
 
 function App() {
-  const [socket, setSocket] = useState(null);
+  const socket = io(`http://${window.location.hostname}:3000`);
+  
   const [userMessage, setUserMessage] = useState(
     { type: MessageTypes.NONE
     , message: ''
     });
-
-  useEffect(() => {
-    const newSocket = io(`http://${window.location.hostname}:3000`);
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
 
   const textInput = useRef(null);
   const yesInput = useRef(null);
   const noInput = useRef(null);
 
   function sendData() {
+    console.log('sending the data now!')
     setUserMessage({ type: MessageTypes.NONE })
     
     const answerIsYes = yesInput.current.checked
@@ -84,8 +80,12 @@ function App() {
                 <span className="green"> sandwich</span>? 
               </h1>
             <div className="options">
+              <label className="yes-no-label">
               <h3>YES <input ref={yesInput} type="radio" value="yes" name="answer"/> </h3> 
+              </label>
+              <label className="yes-no-label">
               <h3>NO <input ref={noInput} type="radio" value="no" name="answer"/> </h3> 
+              </label>
             </div>
             <h1 className="italic"> Why? </h1>
 
@@ -110,9 +110,11 @@ function App() {
           </span>) 
         : <span></span>
       }
-      { showAnswers
-        ? <RecentAnswers closeCallback={hideAnswersPage}/>
-        : <span></span>
+      { <RecentAnswers 
+          closeCallback={hideAnswersPage}
+          socket={socket}
+          showAnswers={showAnswers}
+          />
       }
     </div>
   );
