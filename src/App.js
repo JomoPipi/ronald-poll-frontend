@@ -13,6 +13,7 @@ const msgClasses =
 
 function App() {
   const socket = io(`http://${window.location.hostname}:3000`);
+  // const socket = io(`http://ronald-poll.wl.r.appspot.com:3000`);
   
   const [userMessage, setUserMessage] = useState(
     { type: MessageTypes.NONE
