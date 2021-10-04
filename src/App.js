@@ -24,7 +24,6 @@ function App() {
   const noInput = useRef(null);
 
   function sendData() {
-    console.log('sending the data now!')
     setUserMessage({ type: MessageTypes.NONE })
     
     const answerIsYes = yesInput.current.checked
@@ -38,11 +37,12 @@ function App() {
         })
       return;
     }
-    if (answerDetails.length < "I don't know.".length)
+    const minCharacters = "I don't know.".length
+    if (answerDetails.length < minCharacters)
     {
       setUserMessage(
         { type: MessageTypes.ERROR
-        , message: 'please give a more detailed response'
+        , message: `Please make your response longer than ${minCharacters} characters.`
         })
       return;
     }

@@ -6,10 +6,7 @@ const RecentAnswers = ({ closeCallback, socket, showAnswers }) => {
 
     const [ answers, setAnswers ] = useState([])
 
-    console.log('state =',answers)
-
     socket.on('responses', answers => {
-        console.log('recent responses have been updated!')
         setAnswers(answers)
     })
 
